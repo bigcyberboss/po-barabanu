@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: #0a0a0b;
+    --foreground: #fafafa;
+    --primary: #ff6b00;
+    --primary-hover: #ff8533;
+    --primary-glow: rgba(255, 107, 0, 0.3);
+    --surface: #141416;
+    --surface-hover: #1a1a1e;
+    --border: #2a2a2e;
+    --muted: #a1a1aa;
+    --accent: #ff4500;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-sans), sans-serif;
+    overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+}
+
+/* Selection */
+::selection {
+    background: var(--primary);
+    color: var(--background);
+}
+
+/* Focus visible */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+@layer components {
+    /* CTA Button — основная кнопка записи */
+    .btn-cta {
+        @apply inline-flex items-center justify-center gap-2
+           rounded-xl px-8 py-4
+           bg-primary text-background
+           font-display font-bold text-lg
+           transition-all duration-300
+           hover:bg-primary-hover hover:scale-105
+           active:scale-95
+           shadow-glow;
+    }
+
+    .btn-cta-pulse {
+        @apply btn-cta animate-pulse-glow;
+    }
+
+    /* Secondary button */
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2
+           rounded-xl px-8 py-4
+           bg-transparent text-foreground
+           font-display font-bold text-lg
+           border-2 border-border
+           transition-all duration-300
+           hover:border-primary hover:text-primary hover:scale-105
+           active:scale-95;
+    }
+
+    /* Card */
+    .card {
+        @apply bg-surface rounded-2xl border border-border
+           p-6 transition-all duration-300
+           hover:shadow-card-hover;
+        &:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+        }
+    }
+
+    /* Section container */
+    .section {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24;
+    }
+
+    /* Section title */
+    .section-title {
+        @apply font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl
+           text-foreground mb-4;
+    }
+
+    /* Section subtitle */
+    .section-subtitle {
+        @apply text-muted text-lg sm:text-xl max-w-2xl;
+    }
+
+    /* Gradient text */
+    .text-gradient {
+        @apply bg-clip-text text-transparent;
+        background-image: linear-gradient(to right, #ff6b00, #ff4500);
+    }
+}
+
+/* Background gradient mesh */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background:
+        radial-gradient(
+            ellipse 80% 50% at 50% -20%,
+            rgba(255, 107, 0, 0.08),
+            transparent
+        ),
+        radial-gradient(
+            ellipse 60% 40% at 100% 50%,
+            rgba(255, 69, 0, 0.05),
+            transparent
+        ),
+        radial-gradient(
+            ellipse 60% 40% at 0% 80%,
+            rgba(255, 107, 0, 0.04),
+            transparent
+        );
+    pointer-events: none;
+}
