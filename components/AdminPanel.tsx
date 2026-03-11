@@ -103,6 +103,7 @@ export default function AdminPanel() {
       });
       if (res.ok) {
         setAuthed(true);
+        window.scrollTo(0, 0);
         loadAll();
       } else {
         setAuthError("Неверный пароль");
