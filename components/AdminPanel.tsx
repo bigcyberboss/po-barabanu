@@ -198,10 +198,10 @@ export default function AdminPanel() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="font-display font-bold text-2xl">Админ-панель</h1>
+    <div className="min-h-screen pt-24 pb-12 px-4 overflow-x-hidden">
+      <div className="max-w-4xl mx-auto w-full">
+        <div className="flex items-center justify-between mb-8 gap-2">
+          <h1 className="font-display font-bold text-xl sm:text-2xl">Админ-панель</h1>
           {saveMsg && (
             <span className={`text-sm ${saveMsg === "Сохранено!" ? "text-green-400" : "text-red-400"}`}>
               {saveMsg}
@@ -210,12 +210,12 @@ export default function AdminPanel() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-8 bg-surface rounded-xl p-1 border border-border">
+        <div className="flex gap-1 mb-8 bg-surface rounded-xl p-1 border border-border overflow-x-auto">
           {tabs.map((t) => (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors relative ${
+              className={`flex-shrink-0 px-3 sm:px-4 py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-colors relative whitespace-nowrap ${
                 tab === t.key
                   ? "bg-primary text-background"
                   : "text-muted hover:text-foreground"
@@ -223,7 +223,7 @@ export default function AdminPanel() {
             >
               {t.label}
               {t.badge ? (
-                <span className="ml-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold bg-red-500 text-white">
+                <span className="ml-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold bg-red-500 text-white">
                   {t.badge}
                 </span>
               ) : null}
@@ -483,46 +483,40 @@ function SubmissionsEditor({ submissions, onMarkProcessed }: {
   return (
     <div className="space-y-3">
       {sorted.map((s) => (
-        <div key={s.id} className={`card flex flex-col sm:flex-row sm:items-center gap-4 ${s.status === "new" ? "" : "opacity-60"}`}
+        <div key={s.id} className={`card space-y-3 ${s.status === "new" ? "" : "opacity-60"}`}
           style={s.status === "new" ? { borderColor: "rgba(255,107,0,0.4)" } : undefined}
         >
-          {/* Status indicator */}
-          <div className="flex-shrink-0">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="font-display font-bold text-base">{s.name}</span>
+                <a href={`tel:${s.phone}`} className="text-sm text-primary hover:text-primary-hover transition-colors">{s.phone}</a>
+              </div>
+              <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs text-muted">
+                <span>{s.age} лет</span>
+                <span>{s.forWhom === "child" ? "Для ребёнка" : "Для себя"}</span>
+                <span>{new Date(s.createdAt).toLocaleString("ru-RU", { timeZone: "Europe/Moscow", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
+              </div>
+            </div>
             {s.status === "new" ? (
-              <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+              <div className="w-3 h-3 rounded-full bg-primary animate-pulse flex-shrink-0 mt-1.5" />
             ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-green-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-green-400 flex-shrink-0 mt-1">
                 <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             )}
           </div>
-
-          {/* Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="font-display font-bold text-base">{s.name}</span>
-              <a href={`tel:${s.phone}`} className="text-sm text-primary hover:text-primary-hover transition-colors">{s.phone}</a>
-            </div>
-            <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs text-muted">
-              <span>{s.age} лет</span>
-              <span>{s.forWhom === "child" ? "Для ребёнка" : "Для себя"}</span>
-              <span>{new Date(s.createdAt).toLocaleString("ru-RU", { timeZone: "Europe/Moscow", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
-            </div>
-          </div>
-
-          {/* Action */}
-          <div className="flex-shrink-0">
-            {s.status === "new" ? (
-              <button
-                onClick={() => onMarkProcessed(s.id)}
-                className="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-background hover:bg-primary-hover transition-colors"
-              >
-                Обработано
-              </button>
-            ) : (
-              <span className="text-xs text-green-400 font-medium">Обработана</span>
-            )}
-          </div>
+          {s.status === "new" && (
+            <button
+              onClick={() => onMarkProcessed(s.id)}
+              className="w-full sm:w-auto px-4 py-2 rounded-lg text-sm font-medium bg-primary text-background hover:bg-primary-hover transition-colors"
+            >
+              Обработано
+            </button>
+          )}
+          {s.status !== "new" && (
+            <span className="text-xs text-green-400 font-medium">Обработана</span>
+          )}
         </div>
       ))}
     </div>
