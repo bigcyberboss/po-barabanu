@@ -32,14 +32,14 @@ export async function POST(request: Request) {
     const forWhomText = body.forWhom === "child" ? "Для ребёнка" : "Для себя";
 
     const message = [
-      "🥁 *Новая заявка на пробный урок!*",
+      `<b>Новая заявка на пробный урок!</b>`,
       "",
-      `👤 *Имя:* ${body.name.trim()}`,
-      `📱 *Телефон:* ${body.phone.trim()}`,
-      `🎂 *Возраст:* ${body.age} лет`,
-      `📋 *Для кого:* ${forWhomText}`,
+      `<b>Имя:</b> ${body.name.trim()}`,
+      `<b>Телефон:</b> ${body.phone.trim()}`,
+      `<b>Возраст:</b> ${body.age} лет`,
+      `<b>Для кого:</b> ${forWhomText}`,
       "",
-      `🕐 _${new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })}_`,
+      `${new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" })}`,
     ].join("\n");
 
     // Send to Telegram if configured
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             chat_id: TELEGRAM_CHAT_ID,
             text: message,
-            parse_mode: "Markdown",
+            parse_mode: "HTML",
           }),
         }
       );
