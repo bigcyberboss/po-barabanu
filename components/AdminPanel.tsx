@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-type Tab = "prices" | "teachers" | "reviews" | "site";
+type Tab = "submissions" | "prices" | "teachers" | "reviews" | "site";
 
 interface PriceItem {
   id: string;
@@ -30,6 +30,16 @@ interface Review {
   date: string;
 }
 
+interface Submission {
+  id: string;
+  name: string;
+  phone: string;
+  age: number;
+  forWhom: "self" | "child";
+  status: "new" | "processed";
+  createdAt: string;
+}
+
 interface SiteData {
   name: string;
   tagline: string;
@@ -47,11 +57,12 @@ export default function AdminPanel() {
   const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
   const [authError, setAuthError] = useState("");
-  const [tab, setTab] = useState<Tab>("prices");
+  const [tab, setTab] = useState<Tab>("submissions");
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
 
   // Data states
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [prices, setPrices] = useState<PriceItem[]>([]);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -67,12 +78,14 @@ export default function AdminPanel() {
 
   const loadAll = useCallback(async () => {
     try {
-      const [p, t, r, s] = await Promise.all([
+      const [sub, p, t, r, s] = await Promise.all([
+        fetchData("submissions.json"),
         fetchData("prices.json"),
         fetchData("teachers.json"),
         fetchData("reviews.json"),
         fetchData("site.json"),
       ]);
+      setSubmissions(sub);
       setPrices(p);
       setTeachers(t);
       setReviews(r);
@@ -147,13 +160,37 @@ export default function AdminPanel() {
             <button onClick={handleLogin} className="btn-cta w-full">
               Войти
             </button>
+
           </div>
         </div>
       </div>
     );
   }
 
-  const tabs: { key: Tab; label: string }[] = [
+  const markProcessed = async (id: string) => {
+    try {
+      const res = await fetch("/api/admin", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${password}`,
+        },
+        body: JSON.stringify({ id, status: "processed" }),
+      });
+      if (res.ok) {
+        setSubmissions((prev) =>
+          prev.map((s) => (s.id === id ? { ...s, status: "processed" } : s))
+        );
+      }
+    } catch {
+      console.error("Failed to mark as processed");
+    }
+  };
+
+  const newCount = submissions.filter((s) => s.status === "new").length;
+
+  const tabs: { key: Tab; label: string; badge?: number }[] = [
+    { key: "submissions", label: "Заявки", badge: newCount },
     { key: "prices", label: "Цены" },
     { key: "teachers", label: "Преподаватели" },
     { key: "reviews", label: "Отзывы" },
@@ -178,18 +215,26 @@ export default function AdminPanel() {
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors relative ${
                 tab === t.key
                   ? "bg-primary text-background"
                   : "text-muted hover:text-foreground"
               }`}
             >
               {t.label}
+              {t.badge ? (
+                <span className="ml-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold bg-red-500 text-white">
+                  {t.badge}
+                </span>
+              ) : null}
             </button>
           ))}
         </div>
 
         {/* Content */}
+        {tab === "submissions" && (
+          <SubmissionsEditor submissions={submissions} onMarkProcessed={markProcessed} />
+        )}
         {tab === "prices" && (
           <PricesEditor prices={prices} onChange={setPrices} onSave={() => saveData("prices.json", prices)} saving={saving} />
         )}
@@ -414,6 +459,72 @@ function ReviewsEditor({ reviews, onChange, onSave, saving }: {
         </button>
         <SaveButton onSave={onSave} saving={saving} />
       </div>
+    </div>
+  );
+}
+
+/* Submissions Editor */
+function SubmissionsEditor({ submissions, onMarkProcessed }: {
+  submissions: Submission[];
+  onMarkProcessed: (id: string) => void;
+}) {
+  const sorted = [...submissions].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
+  if (sorted.length === 0) {
+    return (
+      <div className="card text-center py-12">
+        <p className="text-muted">Заявок пока нет</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {sorted.map((s) => (
+        <div key={s.id} className={`card flex flex-col sm:flex-row sm:items-center gap-4 ${s.status === "new" ? "" : "opacity-60"}`}
+          style={s.status === "new" ? { borderColor: "rgba(255,107,0,0.4)" } : undefined}
+        >
+          {/* Status indicator */}
+          <div className="flex-shrink-0">
+            {s.status === "new" ? (
+              <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-green-400">
+                <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
+          </div>
+
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="font-display font-bold text-base">{s.name}</span>
+              <a href={`tel:${s.phone}`} className="text-sm text-primary hover:text-primary-hover transition-colors">{s.phone}</a>
+            </div>
+            <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs text-muted">
+              <span>{s.age} лет</span>
+              <span>{s.forWhom === "child" ? "Для ребёнка" : "Для себя"}</span>
+              <span>{new Date(s.createdAt).toLocaleString("ru-RU", { timeZone: "Europe/Moscow", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
+            </div>
+          </div>
+
+          {/* Action */}
+          <div className="flex-shrink-0">
+            {s.status === "new" ? (
+              <button
+                onClick={() => onMarkProcessed(s.id)}
+                className="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-background hover:bg-primary-hover transition-colors"
+              >
+                Обработано
+              </button>
+            ) : (
+              <span className="text-xs text-green-400 font-medium">Обработана</span>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

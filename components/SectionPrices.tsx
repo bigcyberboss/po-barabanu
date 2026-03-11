@@ -22,15 +22,15 @@ export default function SectionPrices() {
       </AnimateOnScroll>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        <AnimateOnScroll animation="slide-in-left" delay={0}>
+        <AnimateOnScroll animation="slide-in-left" delay={0} className="h-full">
           <div
-            className="card relative overflow-hidden"
+            className="card relative overflow-hidden h-full flex flex-col"
             style={{ borderColor: "rgba(255,107,0,0.5)" }}
           >
             <div className="absolute top-0 right-0 px-3 py-1 bg-primary text-background text-xs font-bold rounded-bl-xl">
               Популярное
             </div>
-            <div className="pt-4">
+            <div className="pt-4 flex flex-col flex-1">
               <h3 className="font-display font-bold text-xl mb-1">
                 Пробный урок
               </h3>
@@ -73,22 +73,24 @@ export default function SectionPrices() {
                   </li>
                 ))}
               </ul>
-              <CTAButton
-                onClick={() => {
-                  reachGoal("booking_click", { source: "prices_trial" });
-                  openBooking();
-                }}
-                pulse
-                className="w-full"
-              >
-                Записаться
-              </CTAButton>
+              <div className="mt-auto">
+                <CTAButton
+                  onClick={() => {
+                    reachGoal("booking_click", { source: "prices_trial" });
+                    openBooking();
+                  }}
+                  pulse
+                  className="w-full"
+                >
+                  Записаться
+                </CTAButton>
+              </div>
             </div>
           </div>
         </AnimateOnScroll>
 
-        <AnimateOnScroll animation="slide-in-right" delay={100}>
-          <div className="card">
+        <AnimateOnScroll animation="slide-in-right" delay={100} className="h-full">
+          <div className="card h-full flex flex-col">
             <h3 className="font-display font-bold text-xl mb-1">
               Индивидуальное занятие
             </h3>
@@ -131,16 +133,18 @@ export default function SectionPrices() {
                 </li>
               ))}
             </ul>
-            <CTAButton
-              onClick={() => {
-                reachGoal("booking_click", { source: "prices_individual" });
-                openBooking();
-              }}
-              variant="secondary"
-              className="w-full"
-            >
-              Записаться
-            </CTAButton>
+            <div className="mt-auto">
+              <CTAButton
+                onClick={() => {
+                  reachGoal("booking_click", { source: "prices_individual" });
+                  openBooking();
+                }}
+                variant="secondary"
+                className="w-full"
+              >
+                Записаться
+              </CTAButton>
+            </div>
           </div>
         </AnimateOnScroll>
       </div>

@@ -1,6 +1,6 @@
 /* Yandex Metrica helpers */
 
-// Counter ID — задаётся через env или напрямую
+// Counter ID - задаётся через env или напрямую
 export const METRICA_ID = process.env.NEXT_PUBLIC_METRICA_ID || "";
 
 // Типы событий аналитики
@@ -11,7 +11,7 @@ export type MetricaEvent =
   | "booking_click"
   | "prices_view";
 
-// Безопасный доступ к ym — может быть не загружен
+// Безопасный доступ к ym - может быть не загружен
 function getYm(): ((id: number, method: string, ...args: unknown[]) => void) | null {
   if (typeof window !== "undefined" && typeof (window as any).ym === "function") {
     return (window as any).ym;
@@ -27,7 +27,7 @@ export function reachGoal(goal: MetricaEvent, params?: Record<string, unknown>) 
   ym(id, "reachGoal", goal, params);
 }
 
-/** Отправить хит (pageview) вручную — для SPA-переходов */
+/** Отправить хит (pageview) вручную - для SPA-переходов */
 export function hit(url: string) {
   const ym = getYm();
   const id = Number(METRICA_ID);

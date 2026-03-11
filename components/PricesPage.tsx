@@ -13,7 +13,7 @@ const faq = [
   },
   {
     q: "Сколько длится пробный урок?",
-    a: "Пробный урок длится 30 минут — достаточно, чтобы попробовать и понять, нравится ли вам.",
+    a: "Пробный урок длится 30 минут - достаточно, чтобы попробовать и понять, нравится ли вам.",
   },
   {
     q: "Можно ли перенести занятие?",
@@ -48,15 +48,15 @@ export default function PricesPage() {
 
         {/* Price cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
-          <AnimateOnScroll animation="slide-in-left">
+          <AnimateOnScroll animation="slide-in-left" className="h-full">
             <div
-              className="card relative overflow-hidden"
+              className="card relative overflow-hidden h-full flex flex-col"
               style={{ borderColor: "rgba(255,107,0,0.5)" }}
             >
               <div className="absolute top-0 right-0 px-3 py-1 bg-primary text-background text-xs font-bold rounded-bl-xl">
                 Начните здесь
               </div>
-              <div className="pt-4">
+              <div className="pt-4 flex flex-col flex-1">
                 <h2 className="font-display font-bold text-2xl mb-1">
                   Пробный урок
                 </h2>
@@ -101,22 +101,24 @@ export default function PricesPage() {
                     </li>
                   ))}
                 </ul>
-                <CTAButton
-                  onClick={() => {
-                    reachGoal("booking_click", { source: "prices_page_trial" });
-                    openBooking();
-                  }}
-                  pulse
-                  className="w-full"
-                >
-                  Записаться на пробный
-                </CTAButton>
+                <div className="mt-auto">
+                  <CTAButton
+                    onClick={() => {
+                      reachGoal("booking_click", { source: "prices_page_trial" });
+                      openBooking();
+                    }}
+                    pulse
+                    className="w-full"
+                  >
+                    Записаться на пробный
+                  </CTAButton>
+                </div>
               </div>
             </div>
           </AnimateOnScroll>
 
-          <AnimateOnScroll animation="slide-in-right" delay={100}>
-            <div className="card">
+          <AnimateOnScroll animation="slide-in-right" delay={100} className="h-full">
+            <div className="card h-full flex flex-col">
               <h2 className="font-display font-bold text-2xl mb-1">
                 Индивидуальное занятие
               </h2>
@@ -161,18 +163,20 @@ export default function PricesPage() {
                   </li>
                 ))}
               </ul>
-              <CTAButton
-                onClick={() => {
-                  reachGoal("booking_click", {
-                    source: "prices_page_individual",
-                  });
-                  openBooking();
-                }}
-                variant="secondary"
-                className="w-full"
-              >
-                Записаться
-              </CTAButton>
+              <div className="mt-auto">
+                <CTAButton
+                  onClick={() => {
+                    reachGoal("booking_click", {
+                      source: "prices_page_individual",
+                    });
+                    openBooking();
+                  }}
+                  variant="secondary"
+                  className="w-full"
+                >
+                  Записаться
+                </CTAButton>
+              </div>
             </div>
           </AnimateOnScroll>
         </div>

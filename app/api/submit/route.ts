@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
+import fs from "fs/promises";
+import path from "path";
+import crypto from "crypto";
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const SUBMISSIONS_PATH = path.join(process.cwd(), "data", "submissions.json");
 
 interface SubmitBody {
   name: string;
@@ -59,6 +63,29 @@ export async function POST(request: Request) {
     } else {
       // Log to console if Telegram not configured
       console.log("New booking (Telegram not configured):", message);
+    }
+
+    // Save to submissions.json
+    try {
+      let submissions = [];
+      try {
+        const raw = await fs.readFile(SUBMISSIONS_PATH, "utf-8");
+        submissions = JSON.parse(raw);
+      } catch {
+        submissions = [];
+      }
+      submissions.push({
+        id: crypto.randomUUID(),
+        name: body.name.trim(),
+        phone: body.phone.trim(),
+        age: body.age,
+        forWhom: body.forWhom,
+        status: "new",
+        createdAt: new Date().toISOString(),
+      });
+      await fs.writeFile(SUBMISSIONS_PATH, JSON.stringify(submissions, null, 2), "utf-8");
+    } catch (err) {
+      console.error("Failed to save submission:", err);
     }
 
     return NextResponse.json({ success: true });

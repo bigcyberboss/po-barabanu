@@ -7,6 +7,7 @@ interface TrackedLinkProps {
   event: MetricaEvent;
   eventParams?: Record<string, unknown>;
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
   target?: string;
   rel?: string;

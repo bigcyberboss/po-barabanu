@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  // output: "standalone", // включить для деплоя на VPS
   images: {
     formats: ["image/webp", "image/avif"],
   },

@@ -173,7 +173,7 @@ export default function ContactsPage() {
                     <h3 className="font-display font-bold text-lg mb-1">
                       Режим работы
                     </h3>
-                    <p className="text-muted">Пн — Вс: по записи</p>
+                    <p className="text-muted">Пн - Вс: по записи</p>
                     <p className="text-sm text-muted mt-1">
                       Подстраиваемся под ваш график
                     </p>
@@ -194,30 +194,24 @@ export default function ContactsPage() {
             </div>
           </AnimateOnScroll>
 
-          {/* Map placeholder */}
+          {/* Yandex Map */}
           <AnimateOnScroll animation="slide-in-right" delay={100}>
-            <div className="card h-full min-h-[400px] flex flex-col items-center justify-center text-center">
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--muted)"
-                strokeWidth="1.5"
-                className="mb-4"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <h3 className="font-display font-bold text-lg mb-2">
-                Караимская 21
-              </h3>
-              <p className="text-sm text-muted mb-4">
-                Яндекс.Карта будет добавлена
-              </p>
-              <p className="text-xs text-muted">
-                Бесплатная парковка рядом со входом
-              </p>
+            <div className="card h-full min-h-[400px] flex flex-col overflow-hidden p-0">
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?pt=34.1000,44.9424&z=17&l=map&size=450,400"
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: "400px", borderRadius: "inherit" }}
+                allowFullScreen
+                loading="lazy"
+                title="Караимская 21, Симферополь"
+              />
+              <div className="p-4 text-center" style={{ background: "var(--surface)" }}>
+                <p className="font-display font-bold text-sm">Караимская 21</p>
+                <p className="text-xs text-muted mt-1">
+                  Бесплатная парковка рядом со входом
+                </p>
+              </div>
             </div>
           </AnimateOnScroll>
         </div>

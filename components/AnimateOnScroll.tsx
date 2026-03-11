@@ -20,6 +20,27 @@ interface AnimateOnScrollProps {
   className?: string;
 }
 
+const getInitialTransform = (animation: Animation): string => {
+  switch (animation) {
+    case "fade-in":
+      return "none";
+    case "fade-in-up":
+      return "translateY(30px)";
+    case "fade-in-down":
+      return "translateY(-30px)";
+    case "scale-in":
+      return "scale(0.9)";
+    case "bounce-in":
+      return "scale(0.8)";
+    case "slide-in-left":
+      return "translateX(-40px)";
+    case "slide-in-right":
+      return "translateX(40px)";
+    default:
+      return "none";
+  }
+};
+
 export default function AnimateOnScroll({
   children,
   animation = "fade-in-up",
@@ -55,11 +76,9 @@ export default function AnimateOnScroll({
       className={className}
       style={{
         opacity: isVisible ? 1 : 0,
-        animationName: isVisible ? animation : "none",
-        animationDuration: `${duration}ms`,
-        animationDelay: `${delay}ms`,
-        animationTimingFunction: "ease-out",
-        animationFillMode: "forwards",
+        transform: isVisible ? "none" : getInitialTransform(animation),
+        transition: `opacity ${duration}ms ease-out ${delay}ms, transform ${duration}ms ease-out ${delay}ms`,
+        willChange: isVisible ? "auto" : "opacity, transform",
       }}
     >
       {children}

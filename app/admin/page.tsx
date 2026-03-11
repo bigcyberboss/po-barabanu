@@ -1,7 +1,7 @@
 import AdminPanel from "@/components/AdminPanel";
 
 export const metadata = {
-  title: "Админка — По Барабану",
+  title: "Админка - По Барабану",
   robots: "noindex, nofollow",
 };
 

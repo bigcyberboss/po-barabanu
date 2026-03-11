@@ -46,7 +46,7 @@ export default function GalleryPage() {
           <div className="text-center">
             <p className="text-muted mb-6">
               Фото и видео школы будут добавлены в ближайшее время.
-              <br />А пока — приходите на пробный урок и увидите всё своими глазами!
+              <br />А пока - приходите на пробный урок и увидите всё своими глазами!
             </p>
             <CTAButton onClick={openBooking} pulse>
               Записаться на пробный урок

@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 
 const DATA_DIR = path.join(process.cwd(), "data");
-const ALLOWED_FILES = ["prices.json", "teachers.json", "reviews.json", "site.json"];
+const ALLOWED_FILES = ["prices.json", "teachers.json", "reviews.json", "site.json", "submissions.json"];
 
 function checkAuth(request: NextRequest): boolean {
   const authHeader = request.headers.get("authorization");
@@ -12,7 +12,7 @@ function checkAuth(request: NextRequest): boolean {
   return password === process.env.ADMIN_PASSWORD;
 }
 
-// GET — получить данные
+// GET - получить данные
 export async function GET(request: NextRequest) {
   if (!checkAuth(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -34,7 +34,39 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// PUT — обновить данные
+// PATCH - обновить статус заявки
+export async function PATCH(request: NextRequest) {
+  if (!checkAuth(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const body = await request.json();
+    const { id, status } = body;
+
+    if (!id || !status) {
+      return NextResponse.json({ error: "Missing id or status" }, { status: 400 });
+    }
+
+    const filePath = path.join(DATA_DIR, "submissions.json");
+    const content = await fs.readFile(filePath, "utf-8");
+    const submissions = JSON.parse(content);
+
+    const index = submissions.findIndex((s: { id: string }) => s.id === id);
+    if (index === -1) {
+      return NextResponse.json({ error: "Submission not found" }, { status: 404 });
+    }
+
+    submissions[index].status = status;
+    await fs.writeFile(filePath, JSON.stringify(submissions, null, 2), "utf-8");
+
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: "Failed to update" }, { status: 500 });
+  }
+}
+
+// PUT - обновить данные
 export async function PUT(request: NextRequest) {
   if (!checkAuth(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

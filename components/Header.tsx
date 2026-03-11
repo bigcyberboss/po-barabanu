@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { useBooking } from "./BookingProvider";
@@ -8,7 +8,18 @@ import { reachGoal } from "@/lib/metrica";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const { openBooking } = useBooking();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -24,20 +35,8 @@ export default function Header() {
                 fill="none"
                 className="sm:w-6 sm:h-6"
               >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="#0a0a0b"
-                  strokeWidth="2"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="6"
-                  stroke="#0a0a0b"
-                  strokeWidth="1.5"
-                />
+                <circle cx="12" cy="12" r="10" stroke="#0a0a0b" strokeWidth="2" />
+                <circle cx="12" cy="12" r="6" stroke="#0a0a0b" strokeWidth="1.5" />
                 <circle cx="12" cy="12" r="2" fill="#0a0a0b" />
               </svg>
             </div>
@@ -59,23 +58,33 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA + contact */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Desktop CTA + socials */}
+          <div className="hidden lg:flex items-center gap-3">
             {SITE.social.telegram && (
               <a
                 href={SITE.social.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-primary transition-colors"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface transition-colors"
                 aria-label="Telegram"
               >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+                </svg>
+              </a>
+            )}
+            {SITE.social.instagram && (
+              <a
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface transition-colors"
+                aria-label="Instagram"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="5" />
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
                 </svg>
               </a>
             )}
@@ -84,7 +93,7 @@ export default function Header() {
                 reachGoal("booking_click", { source: "header" });
                 openBooking();
               }}
-              className="btn-cta px-6 py-2.5 text-sm"
+              className="px-5 py-2 rounded-lg bg-primary text-background font-display font-bold text-sm hover:bg-primary-hover transition-colors"
             >
               Записаться
             </button>
@@ -96,14 +105,7 @@ export default function Header() {
             className="lg:hidden p-2 text-foreground"
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               {mobileOpen ? (
                 <path d="M18 6L6 18M6 6l12 12" />
               ) : (
@@ -113,6 +115,12 @@ export default function Header() {
           </button>
         </div>
       </div>
+
+      {/* Scroll progress bar */}
+      <div
+        className="absolute bottom-0 left-0 h-[2px] bg-primary transition-none"
+        style={{ width: `${scrollProgress}%` }}
+      />
 
       {/* Mobile menu */}
       {mobileOpen && (
@@ -129,31 +137,43 @@ export default function Header() {
               </Link>
             ))}
             <div className="mt-4 flex flex-col gap-3 px-4">
-              {SITE.social.telegram && (
-                <a
-                  href={SITE.social.telegram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted hover:text-primary transition-colors"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
+              <div className="flex items-center gap-3">
+                {SITE.social.telegram && (
+                  <a
+                    href={SITE.social.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center text-muted hover:text-primary transition-colors"
+                    style={{ background: "rgba(255,255,255,0.05)" }}
                   >
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
-                  </svg>
-                  Telegram
-                </a>
-              )}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+                    </svg>
+                  </a>
+                )}
+                {SITE.social.instagram && (
+                  <a
+                    href={SITE.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center text-muted hover:text-primary transition-colors"
+                    style={{ background: "rgba(255,255,255,0.05)" }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="2" y="2" width="20" height="20" rx="5" />
+                      <circle cx="12" cy="12" r="5" />
+                      <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                    </svg>
+                  </a>
+                )}
+              </div>
               <button
                 onClick={() => {
                   setMobileOpen(false);
                   reachGoal("booking_click", { source: "header_mobile" });
                   openBooking();
                 }}
-                className="btn-cta w-full"
+                className="w-full py-3 rounded-lg bg-primary text-background font-display font-bold text-base hover:bg-primary-hover transition-colors"
               >
                 Записаться на урок
               </button>

@@ -144,7 +144,7 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
               Записаться на пробный урок
             </h3>
             <p className="text-sm text-muted mb-6">
-              Пробное занятие — 500 &#8381;
+              Пробное занятие - 500 &#8381;
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
