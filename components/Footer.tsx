@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           {/* Nav + Contacts in 2 sub-columns */}
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
               <h3 className="font-display font-semibold text-xs text-foreground mb-4 uppercase tracking-widest">
                 Страницы
@@ -115,7 +115,7 @@ export default function Footer() {
                       <circle cx="12" cy="12" r="5" />
                       <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
                     </svg>
-                    @po_barananu_drumschool
+                    <span className="truncate">@po_barananu_drumschool</span>
                   </TrackedLink>
                 </li>
                 <li className="pt-1">
