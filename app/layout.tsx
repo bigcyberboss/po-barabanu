@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import BookingProvider from "@/components/BookingProvider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -41,7 +44,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${inter.variable} ${outfit.variable}`}>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        <BookingProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </BookingProvider>
+      </body>
     </html>
   );
 }
