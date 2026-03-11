@@ -98,9 +98,9 @@ body {
         @apply bg-surface rounded-2xl border border-border
            p-6 transition-all duration-300
            hover:shadow-card-hover;
-        &:hover {
-            border-color: rgba(255, 107, 0, 0.3);
-        }
+    }
+    .card:hover {
+        border-color: rgba(255, 107, 0, 0.3);
     }
 
     /* Section container */
