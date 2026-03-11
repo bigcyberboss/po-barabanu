@@ -68,6 +68,15 @@ export default function AdminPanel() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [site, setSite] = useState<SiteData | null>(null);
 
+  // Auto-login from sessionStorage
+  useEffect(() => {
+    const saved = sessionStorage.getItem("admin_pw");
+    if (saved) {
+      setPassword(saved);
+      setAuthed(true);
+    }
+  }, []);
+
   const fetchData = useCallback(async (file: string) => {
     const res = await fetch(`/api/admin?file=${file}`, {
       headers: { Authorization: `Bearer ${password}` },
@@ -95,6 +104,13 @@ export default function AdminPanel() {
     }
   }, [fetchData]);
 
+  // Load data when authed + password are set
+  useEffect(() => {
+    if (authed && password) {
+      loadAll();
+    }
+  }, [authed, password, loadAll]);
+
   const handleLogin = async () => {
     setAuthError("");
     try {
@@ -102,9 +118,9 @@ export default function AdminPanel() {
         headers: { Authorization: `Bearer ${password}` },
       });
       if (res.ok) {
+        sessionStorage.setItem("admin_pw", password);
         setAuthed(true);
         window.scrollTo(0, 0);
-        loadAll();
       } else {
         setAuthError("Неверный пароль");
       }
