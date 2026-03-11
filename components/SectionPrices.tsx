@@ -3,6 +3,7 @@
 import AnimateOnScroll from "./AnimateOnScroll";
 import CTAButton from "./CTAButton";
 import { useBooking } from "./BookingProvider";
+import { reachGoal } from "@/lib/metrica";
 
 export default function SectionPrices() {
   const { openBooking } = useBooking();
@@ -72,7 +73,14 @@ export default function SectionPrices() {
                   </li>
                 ))}
               </ul>
-              <CTAButton onClick={openBooking} pulse className="w-full">
+              <CTAButton
+                onClick={() => {
+                  reachGoal("booking_click", { source: "prices_trial" });
+                  openBooking();
+                }}
+                pulse
+                className="w-full"
+              >
                 Записаться
               </CTAButton>
             </div>
@@ -124,7 +132,10 @@ export default function SectionPrices() {
               ))}
             </ul>
             <CTAButton
-              onClick={openBooking}
+              onClick={() => {
+                reachGoal("booking_click", { source: "prices_individual" });
+                openBooking();
+              }}
               variant="secondary"
               className="w-full"
             >

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { useBooking } from "./BookingProvider";
+import { reachGoal } from "@/lib/metrica";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -79,7 +80,10 @@ export default function Header() {
               </a>
             )}
             <button
-              onClick={openBooking}
+              onClick={() => {
+                reachGoal("booking_click", { source: "header" });
+                openBooking();
+              }}
               className="btn-cta px-6 py-2.5 text-sm"
             >
               Записаться
@@ -146,6 +150,7 @@ export default function Header() {
               <button
                 onClick={() => {
                   setMobileOpen(false);
+                  reachGoal("booking_click", { source: "header_mobile" });
                   openBooking();
                 }}
                 className="btn-cta w-full"

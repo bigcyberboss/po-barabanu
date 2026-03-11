@@ -2,6 +2,7 @@
 
 import CTAButton from "./CTAButton";
 import { useBooking } from "./BookingProvider";
+import { reachGoal } from "@/lib/metrica";
 
 export default function Hero() {
   const { openBooking } = useBooking();
@@ -118,7 +119,13 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in-up"
           style={{ animationDelay: "300ms" }}
         >
-          <CTAButton onClick={openBooking} pulse>
+          <CTAButton
+            onClick={() => {
+              reachGoal("booking_click", { source: "hero" });
+              openBooking();
+            }}
+            pulse
+          >
             Записаться на пробный урок
           </CTAButton>
           <CTAButton href="/prices" variant="secondary">
@@ -157,6 +164,12 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
+              onClick={() =>
+                reachGoal("messenger_click", {
+                  messenger: "telegram",
+                  source: "hero",
+                })
+              }
             >
               Написать в Telegram
             </a>

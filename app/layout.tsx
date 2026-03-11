@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import BookingProvider from "@/components/BookingProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import YandexMetrica from "@/components/YandexMetrica";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -45,6 +47,9 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} ${outfit.variable}`}>
       <body className="min-h-screen">
+        <Suspense fallback={null}>
+          <YandexMetrica />
+        </Suspense>
         <BookingProvider>
           <Header />
           <main>{children}</main>

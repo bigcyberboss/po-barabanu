@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { reachGoal } from "@/lib/metrica";
 
 interface BookingFormProps {
   isOpen: boolean;
@@ -29,7 +30,8 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
     if (!age.trim()) errs.age = "Введите возраст";
     else {
       const ageNum = parseInt(age);
-      if (isNaN(ageNum) || ageNum < 5 || ageNum > 99) errs.age = "Возраст от 5 до 99";
+      if (isNaN(ageNum) || ageNum < 5 || ageNum > 99)
+        errs.age = "Возраст от 5 до 99";
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -44,13 +46,21 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim(), age: parseInt(age), forWhom }),
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          age: parseInt(age),
+          forWhom,
+        }),
       });
 
       if (res.ok) {
         setSuccess(true);
+        reachGoal("form_submit", { forWhom, age: parseInt(age) });
       } else {
-        setErrors({ form: "Ошибка отправки. Попробуйте ещё раз или напишите в Telegram." });
+        setErrors({
+          form: "Ошибка отправки. Попробуйте ещё раз или напишите в Telegram.",
+        });
       }
     } catch {
       setErrors({ form: "Ошибка сети. Попробуйте ещё раз." });
@@ -85,7 +95,14 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
           className="absolute top-4 right-4 p-2 text-muted hover:text-foreground transition-colors"
           aria-label="Закрыть"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
@@ -94,11 +111,25 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
           /* Success screen */
           <div className="text-center py-8">
             <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6 animate-bounce-in">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-primary">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="text-primary"
+              >
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
-            <h3 className="font-display font-bold text-2xl mb-2">Спасибо за заявку!</h3>
+            <h3 className="font-display font-bold text-2xl mb-2">
+              Спасибо за заявку!
+            </h3>
             <p className="text-muted mb-6">
               Мы свяжемся с вами для выбора удобного времени
             </p>
@@ -109,13 +140,20 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
         ) : (
           /* Form */
           <>
-            <h3 className="font-display font-bold text-2xl mb-1">Записаться на пробный урок</h3>
-            <p className="text-sm text-muted mb-6">Пробное занятие — 500 &#8381;</p>
+            <h3 className="font-display font-bold text-2xl mb-1">
+              Записаться на пробный урок
+            </h3>
+            <p className="text-sm text-muted mb-6">
+              Пробное занятие — 500 &#8381;
+            </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name */}
               <div>
-                <label htmlFor="booking-name" className="block text-sm font-medium mb-1.5">
+                <label
+                  htmlFor="booking-name"
+                  className="block text-sm font-medium mb-1.5"
+                >
                   Имя
                 </label>
                 <input
@@ -126,12 +164,17 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
                   placeholder="Ваше имя"
                   className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder:text-muted/50 focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors outline-none"
                 />
-                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                {errors.name && (
+                  <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                )}
               </div>
 
               {/* Phone */}
               <div>
-                <label htmlFor="booking-phone" className="block text-sm font-medium mb-1.5">
+                <label
+                  htmlFor="booking-phone"
+                  className="block text-sm font-medium mb-1.5"
+                >
                   Телефон
                 </label>
                 <input
@@ -142,12 +185,17 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
                   placeholder="+7 (___) ___-__-__"
                   className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder:text-muted/50 focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors outline-none"
                 />
-                {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+                {errors.phone && (
+                  <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+                )}
               </div>
 
               {/* Age */}
               <div>
-                <label htmlFor="booking-age" className="block text-sm font-medium mb-1.5">
+                <label
+                  htmlFor="booking-age"
+                  className="block text-sm font-medium mb-1.5"
+                >
                   Возраст ученика
                 </label>
                 <input
@@ -160,12 +208,16 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
                   placeholder="Возраст"
                   className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder:text-muted/50 focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors outline-none"
                 />
-                {errors.age && <p className="text-red-400 text-xs mt-1">{errors.age}</p>}
+                {errors.age && (
+                  <p className="text-red-400 text-xs mt-1">{errors.age}</p>
+                )}
               </div>
 
               {/* For whom */}
               <div>
-                <label className="block text-sm font-medium mb-2">Для кого</label>
+                <label className="block text-sm font-medium mb-2">
+                  Для кого
+                </label>
                 <div className="flex gap-3">
                   <button
                     type="button"
@@ -193,7 +245,9 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
               </div>
 
               {errors.form && (
-                <p className="text-red-400 text-sm text-center">{errors.form}</p>
+                <p className="text-red-400 text-sm text-center">
+                  {errors.form}
+                </p>
               )}
 
               <button

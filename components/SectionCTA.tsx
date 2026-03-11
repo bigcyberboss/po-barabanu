@@ -3,6 +3,7 @@
 import AnimateOnScroll from "./AnimateOnScroll";
 import CTAButton from "./CTAButton";
 import { useBooking } from "./BookingProvider";
+import { reachGoal } from "@/lib/metrica";
 
 export default function SectionCTA() {
   const { openBooking } = useBooking();
@@ -30,7 +31,13 @@ export default function SectionCTA() {
               Запишитесь на пробный урок за 500 &#8381; и почувствуйте ритм
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <CTAButton onClick={openBooking} pulse>
+              <CTAButton
+                onClick={() => {
+                  reachGoal("booking_click", { source: "cta_section" });
+                  openBooking();
+                }}
+                pulse
+              >
                 Записаться на пробный урок
               </CTAButton>
               <a
@@ -38,6 +45,12 @@ export default function SectionCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"
+                onClick={() =>
+                  reachGoal("messenger_click", {
+                    messenger: "telegram",
+                    source: "cta_section",
+                  })
+                }
               >
                 <svg
                   width="20"

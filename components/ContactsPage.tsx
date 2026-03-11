@@ -4,6 +4,7 @@ import AnimateOnScroll from "./AnimateOnScroll";
 import CTAButton from "./CTAButton";
 import { useBooking } from "./BookingProvider";
 import { SITE } from "@/lib/constants";
+import { reachGoal } from "@/lib/metrica";
 
 export default function ContactsPage() {
   const { openBooking } = useBooking();
@@ -29,16 +30,30 @@ export default function ContactsPage() {
               {/* Address */}
               <div className="card">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,107,0,0.1)" }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(255,107,0,0.1)" }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--primary)"
+                      strokeWidth="2"
+                    >
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                       <circle cx="12" cy="10" r="3" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-lg mb-1">Адрес</h3>
+                    <h3 className="font-display font-bold text-lg mb-1">
+                      Адрес
+                    </h3>
                     <p className="text-muted">{SITE.address}</p>
-                    <p className="text-sm text-muted mt-1">Есть бесплатная парковка</p>
+                    <p className="text-sm text-muted mt-1">
+                      Есть бесплатная парковка
+                    </p>
                   </div>
                 </div>
               </div>
@@ -46,17 +61,40 @@ export default function ContactsPage() {
               {/* Telegram */}
               <div className="card">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,107,0,0.1)" }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--primary)">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(255,107,0,0.1)" }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="var(--primary)"
+                    >
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-lg mb-1">Telegram</h3>
-                    <a href={SITE.social.telegram} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-hover transition-colors">
+                    <h3 className="font-display font-bold text-lg mb-1">
+                      Telegram
+                    </h3>
+                    <a
+                      href={SITE.social.telegram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-primary-hover transition-colors"
+                      onClick={() =>
+                        reachGoal("messenger_click", {
+                          messenger: "telegram",
+                          source: "contacts",
+                        })
+                      }
+                    >
                       @Maksz_1
                     </a>
-                    <p className="text-sm text-muted mt-1">Самый быстрый способ связаться</p>
+                    <p className="text-sm text-muted mt-1">
+                      Самый быстрый способ связаться
+                    </p>
                   </div>
                 </div>
               </div>
@@ -64,19 +102,50 @@ export default function ContactsPage() {
               {/* Instagram */}
               <div className="card">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,107,0,0.1)" }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(255,107,0,0.1)" }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--primary)"
+                      strokeWidth="2"
+                    >
                       <rect x="2" y="2" width="20" height="20" rx="5" />
                       <circle cx="12" cy="12" r="5" />
-                      <circle cx="17.5" cy="6.5" r="1.5" fill="var(--primary)" stroke="none" />
+                      <circle
+                        cx="17.5"
+                        cy="6.5"
+                        r="1.5"
+                        fill="var(--primary)"
+                        stroke="none"
+                      />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-lg mb-1">Instagram</h3>
-                    <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-hover transition-colors">
+                    <h3 className="font-display font-bold text-lg mb-1">
+                      Instagram
+                    </h3>
+                    <a
+                      href={SITE.social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-primary-hover transition-colors"
+                      onClick={() =>
+                        reachGoal("messenger_click", {
+                          messenger: "instagram",
+                          source: "contacts",
+                        })
+                      }
+                    >
                       @po_barananu_drumschool
                     </a>
-                    <p className="text-sm text-muted mt-1">Видео и фото с уроков</p>
+                    <p className="text-sm text-muted mt-1">
+                      Видео и фото с уроков
+                    </p>
                   </div>
                 </div>
               </div>
@@ -84,21 +153,42 @@ export default function ContactsPage() {
               {/* Schedule */}
               <div className="card">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,107,0,0.1)" }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(255,107,0,0.1)" }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--primary)"
+                      strokeWidth="2"
+                    >
                       <circle cx="12" cy="12" r="10" />
                       <path d="M12 6v6l4 2" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-lg mb-1">Режим работы</h3>
+                    <h3 className="font-display font-bold text-lg mb-1">
+                      Режим работы
+                    </h3>
                     <p className="text-muted">Пн — Вс: по записи</p>
-                    <p className="text-sm text-muted mt-1">Подстраиваемся под ваш график</p>
+                    <p className="text-sm text-muted mt-1">
+                      Подстраиваемся под ваш график
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <CTAButton onClick={openBooking} pulse className="w-full">
+              <CTAButton
+                onClick={() => {
+                  reachGoal("booking_click", { source: "contacts" });
+                  openBooking();
+                }}
+                pulse
+                className="w-full"
+              >
                 Записаться на пробный урок
               </CTAButton>
             </div>
@@ -107,13 +197,27 @@ export default function ContactsPage() {
           {/* Map placeholder */}
           <AnimateOnScroll animation="slide-in-right" delay={100}>
             <div className="card h-full min-h-[400px] flex flex-col items-center justify-center text-center">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5" className="mb-4">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--muted)"
+                strokeWidth="1.5"
+                className="mb-4"
+              >
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <h3 className="font-display font-bold text-lg mb-2">Караимская 21</h3>
-              <p className="text-sm text-muted mb-4">Яндекс.Карта будет добавлена</p>
-              <p className="text-xs text-muted">Бесплатная парковка рядом со входом</p>
+              <h3 className="font-display font-bold text-lg mb-2">
+                Караимская 21
+              </h3>
+              <p className="text-sm text-muted mb-4">
+                Яндекс.Карта будет добавлена
+              </p>
+              <p className="text-xs text-muted">
+                Бесплатная парковка рядом со входом
+              </p>
             </div>
           </AnimateOnScroll>
         </div>
