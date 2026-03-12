@@ -23,11 +23,15 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<Element | null>(null);
 
-  // Focus trap + Escape + initial focus
+  // Focus trap + Escape + initial focus + scroll lock
   useEffect(() => {
     if (!isOpen) return;
 
     triggerRef.current = document.activeElement;
+
+    // Lock background scroll
+    const scrollY = window.scrollY;
+    document.body.style.overflow = "hidden";
 
     // Initial focus on name input
     requestAnimationFrame(() => {
@@ -63,7 +67,11 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+      window.scrollTo(0, scrollY);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 

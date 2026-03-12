@@ -27,12 +27,47 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Escape key to close mobile menu
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+
+  // Mobile menu: Escape to close + focus trap + initial focus
   useEffect(() => {
     if (!mobileOpen) return;
+
+    // Focus first nav link
+    requestAnimationFrame(() => {
+      const firstLink = mobileMenuRef.current?.querySelector<HTMLElement>("a, button");
+      firstLink?.focus();
+    });
+
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileOpen(false);
+      if (e.key === "Escape") {
+        setMobileOpen(false);
+        burgerRef.current?.focus();
+        return;
+      }
+
+      if (e.key === "Tab" && mobileMenuRef.current) {
+        const focusable = mobileMenuRef.current.querySelectorAll<HTMLElement>(
+          'a, button, input, [tabindex]:not([tabindex="-1"])'
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last?.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first?.focus();
+          }
+        }
+      }
     };
+
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
   }, [mobileOpen]);
@@ -79,10 +114,10 @@ export default function Header() {
                 >
                   {link.label}
                   <span
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-primary transition-all duration-300 ${
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] rounded-full bg-primary transition-transform duration-200 origin-center ${
                       isActive
-                        ? "w-4/5"
-                        : "w-0 group-hover:w-3/5"
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-75"
                     }`}
                   />
                 </Link>
@@ -136,6 +171,7 @@ export default function Header() {
 
           {/* Mobile burger */}
           <button
+            ref={burgerRef}
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-foreground"
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
@@ -162,7 +198,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-background/95 border-t border-border">
+        <div ref={mobileMenuRef} className="lg:hidden bg-background/95 border-t border-border">
           <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Мобильное меню">
             {NAV_LINKS.map((link) => (
               <Link
