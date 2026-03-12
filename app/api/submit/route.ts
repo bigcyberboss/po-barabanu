@@ -4,7 +4,7 @@ import path from "path";
 import crypto from "crypto";
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_CHAT_IDS = (process.env.TELEGRAM_CHAT_ID || "").split(",").map(s => s.trim()).filter(Boolean);
 const SUBMISSIONS_PATH = path.join(process.cwd(), "data", "submissions.json");
 
 interface SubmitBody {
@@ -43,25 +43,31 @@ export async function POST(request: Request) {
     ].join("\n");
 
     // Send to Telegram if configured
-    if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-      const tgRes = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: message,
-            parse_mode: "HTML",
-          }),
-        }
+    if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_IDS.length > 0) {
+      await Promise.all(
+        TELEGRAM_CHAT_IDS.map(async (chatId) => {
+          try {
+            const tgRes = await fetch(
+              `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  chat_id: chatId,
+                  text: message,
+                  parse_mode: "HTML",
+                }),
+              }
+            );
+            if (!tgRes.ok) {
+              console.error(`Telegram API error for ${chatId}:`, await tgRes.text());
+            }
+          } catch (err) {
+            console.error(`Telegram send error for ${chatId}:`, err);
+          }
+        })
       );
-
-      if (!tgRes.ok) {
-        console.error("Telegram API error:", await tgRes.text());
-      }
     } else {
-      // Log to console if Telegram not configured
       console.log("New booking (Telegram not configured):", message);
     }
 
