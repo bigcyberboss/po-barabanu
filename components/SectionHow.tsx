@@ -6,7 +6,7 @@ const steps = [
     title: "Записываетесь",
     description: "Заполните простую форму или напишите в Telegram - мы подберём удобное время",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
         <rect x="8" y="2" width="8" height="4" rx="1" />
       </svg>
@@ -17,7 +17,7 @@ const steps = [
     title: "Пробный урок",
     description: "Знакомитесь с преподавателем, пробуете инструмент, получаете первые навыки",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none" />
       </svg>
@@ -28,7 +28,7 @@ const steps = [
     title: "Программа",
     description: "Составляем индивидуальную программу под ваши цели и музыкальные предпочтения",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M12 20V10M18 20V4M6 20v-4" />
       </svg>
     ),
@@ -38,7 +38,7 @@ const steps = [
     title: "Результат",
     description: "Играете любимые песни, выступаете на концертах и получаете удовольствие",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M9 12l2 2 4-4" />
         <circle cx="12" cy="12" r="10" />
       </svg>

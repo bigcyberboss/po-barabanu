@@ -16,6 +16,7 @@ export default function Hero() {
           style={{ background: "rgba(255,107,0,0.05)" }}
         />
         <svg
+          aria-hidden="true"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] opacity-[0.06]"
           viewBox="0 0 800 800"
           fill="none"
@@ -151,6 +152,7 @@ export default function Hero() {
           <div className="hidden sm:block w-px h-4 bg-border" />
           <div className="flex items-center gap-2">
             <svg
+              aria-hidden="true"
               width="16"
               height="16"
               viewBox="0 0 24 24"
@@ -179,6 +181,7 @@ export default function Hero() {
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
         <svg
+          aria-hidden="true"
           width="24"
           height="24"
           viewBox="0 0 24 24"

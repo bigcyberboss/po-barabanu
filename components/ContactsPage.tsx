@@ -35,6 +35,7 @@ export default function ContactsPage() {
                     style={{ background: "rgba(255,107,0,0.1)" }}
                   >
                     <svg
+                      aria-hidden="true"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -66,6 +67,7 @@ export default function ContactsPage() {
                     style={{ background: "rgba(255,107,0,0.1)" }}
                   >
                     <svg
+                      aria-hidden="true"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -107,6 +109,7 @@ export default function ContactsPage() {
                     style={{ background: "rgba(255,107,0,0.1)" }}
                   >
                     <svg
+                      aria-hidden="true"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -158,6 +161,7 @@ export default function ContactsPage() {
                     style={{ background: "rgba(255,107,0,0.1)" }}
                   >
                     <svg
+                      aria-hidden="true"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"

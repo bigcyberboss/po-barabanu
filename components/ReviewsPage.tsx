@@ -30,6 +30,7 @@ function Stars({ count }: { count: number }) {
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
+          aria-hidden="true"
           key={i}
           width="16"
           height="16"

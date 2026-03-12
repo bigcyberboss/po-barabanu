@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, SITE } from "@/lib/constants";
@@ -9,19 +9,33 @@ import { reachGoal } from "@/lib/metrica";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const { openBooking } = useBooking();
   const pathname = usePathname();
+  const progressRef = useRef<HTMLDivElement>(null);
 
+  // Scroll progress via ref (no React re-render)
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`;
+      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Escape key to close mobile menu
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [mobileOpen]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -36,6 +50,7 @@ export default function Header() {
                 viewBox="0 0 24 24"
                 fill="none"
                 className="sm:w-6 sm:h-6"
+                aria-hidden="true"
               >
                 <circle cx="12" cy="12" r="10" stroke="#0a0a0b" strokeWidth="2" />
                 <circle cx="12" cy="12" r="6" stroke="#0a0a0b" strokeWidth="1.5" />
@@ -48,7 +63,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Основная навигация">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -60,6 +75,7 @@ export default function Header() {
                       ? "text-primary"
                       : "text-muted hover:text-foreground"
                   }`}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   {link.label}
                   <span
@@ -81,10 +97,11 @@ export default function Header() {
                 href={SITE.social.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface transition-all duration-200 hover:scale-110"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface hover:scale-110"
+                style={{ transition: "transform 200ms ease, color 200ms ease" }}
                 aria-label="Telegram"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
                 </svg>
               </a>
@@ -94,10 +111,11 @@ export default function Header() {
                 href={SITE.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface transition-all duration-200 hover:scale-110"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface hover:scale-110"
+                style={{ transition: "transform 200ms ease, color 200ms ease" }}
                 aria-label="Instagram"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="5" />
                   <circle cx="12" cy="12" r="5" />
                   <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
@@ -109,8 +127,8 @@ export default function Header() {
                 reachGoal("booking_click", { source: "header" });
                 openBooking();
               }}
-              className="px-5 py-2.5 rounded-xl bg-primary text-background font-display font-bold text-sm hover:bg-primary-hover transition-all duration-200 hover:shadow-lg hover:scale-[1.03]"
-              style={{ boxShadow: "0 0 20px rgba(255,107,0,0.15)" }}
+              className="px-5 py-2.5 rounded-xl bg-primary text-background font-display font-bold text-sm hover:bg-primary-hover hover:shadow-lg hover:scale-[1.03]"
+              style={{ boxShadow: "0 0 20px rgba(255,107,0,0.15)", transition: "transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease" }}
             >
               Записаться
             </button>
@@ -121,8 +139,9 @@ export default function Header() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-foreground"
             aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={mobileOpen}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               {mobileOpen ? (
                 <path d="M18 6L6 18M6 6l12 12" />
               ) : (
@@ -135,14 +154,16 @@ export default function Header() {
 
       {/* Scroll progress bar */}
       <div
-        className="absolute bottom-0 left-0 h-[2px] bg-primary transition-none"
-        style={{ width: `${scrollProgress}%` }}
+        ref={progressRef}
+        className="absolute bottom-0 left-0 w-full h-[2px] bg-primary origin-left"
+        style={{ transform: "scaleX(0)" }}
+        aria-hidden="true"
       />
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-border">
-          <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+        <div className="lg:hidden bg-background/95 border-t border-border">
+          <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Мобильное меню">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -162,8 +183,9 @@ export default function Header() {
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg flex items-center justify-center text-muted hover:text-primary transition-colors"
                     style={{ background: "rgba(255,255,255,0.05)" }}
+                    aria-label="Telegram"
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
                     </svg>
                   </a>
@@ -175,8 +197,9 @@ export default function Header() {
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg flex items-center justify-center text-muted hover:text-primary transition-colors"
                     style={{ background: "rgba(255,255,255,0.05)" }}
+                    aria-label="Instagram"
                   >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                       <rect x="2" y="2" width="20" height="20" rx="5" />
                       <circle cx="12" cy="12" r="5" />
                       <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />

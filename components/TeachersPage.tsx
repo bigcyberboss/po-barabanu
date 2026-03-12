@@ -27,7 +27,7 @@ export default function TeachersPage() {
             <div className="card text-center">
               {/* Avatar placeholder */}
               <div className="w-32 h-32 rounded-full bg-surface mx-auto mb-6 flex items-center justify-center border-2" style={{ borderColor: "rgba(255,107,0,0.3)" }}>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5">
+                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>

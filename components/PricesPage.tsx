@@ -83,6 +83,7 @@ export default function PricesPage() {
                       className="flex items-center gap-2 text-sm text-muted"
                     >
                       <svg
+                        aria-hidden="true"
                         width="16"
                         height="16"
                         viewBox="0 0 24 24"
@@ -145,6 +146,7 @@ export default function PricesPage() {
                     className="flex items-center gap-2 text-sm text-muted"
                   >
                     <svg
+                      aria-hidden="true"
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
