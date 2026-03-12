@@ -154,7 +154,7 @@ export default function Hero() {
             href="https://t.me/Maksz_1"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-surface hover:border-primary/50 hover:bg-primary/5 text-foreground transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-surface text-foreground transition-colors hover:border-[rgba(255,107,0,0.5)] hover:bg-[rgba(255,107,0,0.08)]"
             onClick={() =>
               reachGoal("messenger_click", {
                 messenger: "telegram",
