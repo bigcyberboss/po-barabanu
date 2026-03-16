@@ -13,7 +13,7 @@ export const SITE = {
 } as const;
 
 export const PRICES = {
-  trial: { amount: 500, label: "Пробный урок", duration: "30 мин" },
+  trial: { amount: 500, label: "Пробный урок", duration: "60 мин" },
   individual: { amount: 1300, label: "Индивидуальное занятие", duration: "60 мин" },
 } as const;
 

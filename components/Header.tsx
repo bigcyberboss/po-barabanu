@@ -77,24 +77,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary flex items-center justify-center">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="sm:w-6 sm:h-6"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="12" r="10" stroke="#0a0a0b" strokeWidth="2" />
-                <circle cx="12" cy="12" r="6" stroke="#0a0a0b" strokeWidth="1.5" />
-                <circle cx="12" cy="12" r="2" fill="#0a0a0b" />
-              </svg>
-            </div>
-            <span className="font-display font-bold text-lg sm:text-xl text-foreground">
-              {SITE.name}
-            </span>
+          <Link href="/" className="flex items-center">
+            <img
+              src="/images/logo-white.png"
+              alt={SITE.name}
+              className="h-10 sm:h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop nav */}

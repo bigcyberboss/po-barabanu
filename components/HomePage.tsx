@@ -7,14 +7,24 @@ import SectionEquipment from "@/components/SectionEquipment";
 import SectionPrices from "@/components/SectionPrices";
 import SectionCTA from "@/components/SectionCTA";
 
-export default function HomePage() {
+interface PriceItem {
+  id: string;
+  title: string;
+  price: number;
+  duration: string;
+  description: string;
+  features: string[];
+  popular: boolean;
+}
+
+export default function HomePage({ prices }: { prices: PriceItem[] }) {
   return (
     <>
       <Hero />
       <SectionAudience />
       <SectionHow />
       <SectionEquipment />
-      <SectionPrices />
+      <SectionPrices prices={prices} />
       <SectionCTA />
     </>
   );

@@ -177,7 +177,7 @@ export default function ContactsPage() {
                     <h3 className="font-display font-bold text-lg mb-1">
                       Режим работы
                     </h3>
-                    <p className="text-muted">Пн - Вс: по записи</p>
+                    <p className="text-muted">Пт - Пн: по записи</p>
                     <p className="text-sm text-muted mt-1">
                       Подстраиваемся под ваш график
                     </p>
@@ -202,7 +202,7 @@ export default function ContactsPage() {
           <AnimateOnScroll animation="slide-in-right" delay={100}>
             <div className="card h-full min-h-[400px] flex flex-col overflow-hidden p-0">
               <iframe
-                src="https://yandex.ru/map-widget/v1/?pt=34.1000,44.9424&z=17&l=map&size=450,400"
+                src="https://yandex.ru/map-widget/v1/?pt=34.1005,44.9530&z=17&l=map&size=450,400"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "400px", borderRadius: "inherit" }}
