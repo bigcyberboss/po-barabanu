@@ -5,14 +5,14 @@
 :root {
     --background: #0a0a0b;
     --foreground: #fafafa;
-    --primary: #ff6b00;
-    --primary-hover: #ff8533;
-    --primary-glow: rgba(255, 107, 0, 0.3);
+    --primary: #e05500;
+    --primary-hover: #f06200;
+    --primary-glow: rgba(224, 85, 0, 0.3);
     --surface: #141416;
     --surface-hover: #1a1a1e;
     --border: #2a2a2e;
     --muted: #a1a1aa;
-    --accent: #ff4500;
+    --accent: #cc4400;
 }
 
 * {
@@ -102,7 +102,7 @@ body {
     }
     .card:hover,
     .card:focus-within {
-        border-color: rgba(255, 107, 0, 0.3);
+        border-color: rgba(224, 85, 0, 0.3);
     }
 
     /* Section container */
@@ -118,13 +118,13 @@ body {
 
     /* Section subtitle */
     .section-subtitle {
-        @apply text-muted text-lg sm:text-xl max-w-2xl;
+        @apply text-muted text-base sm:text-lg lg:text-xl max-w-2xl;
     }
 
     /* Gradient text */
     .text-gradient {
         @apply bg-clip-text text-transparent;
-        background-image: linear-gradient(to right, #ff6b00, #ff4500);
+        background-image: linear-gradient(to right, #e05500, #cc4400);
     }
 }
 
@@ -140,17 +140,17 @@ body::before {
     background:
         radial-gradient(
             ellipse 80% 50% at 50% -20%,
-            rgba(255, 107, 0, 0.08),
+            rgba(224, 85, 0, 0.08),
             transparent
         ),
         radial-gradient(
             ellipse 60% 40% at 100% 50%,
-            rgba(255, 69, 0, 0.05),
+            rgba(204, 68, 0, 0.05),
             transparent
         ),
         radial-gradient(
             ellipse 60% 40% at 0% 80%,
-            rgba(255, 107, 0, 0.04),
+            rgba(224, 85, 0, 0.04),
             transparent
         );
     pointer-events: none;

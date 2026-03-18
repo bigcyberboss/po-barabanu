@@ -12,7 +12,7 @@ export default function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/bg-drums.png"
+          src="/images/bg-drums.jpg"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover opacity-30"
@@ -21,7 +21,14 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
+        {/* Logo */}
+        <img
+          src="/images/logo-baraban.png"
+          alt="По Барабану"
+          className="w-48 sm:w-64 md:w-80 mb-8 animate-fade-in-up"
+        />
+
         <h1
           className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 animate-fade-in-up"
           style={{ animationDelay: "100ms" }}

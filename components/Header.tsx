@@ -151,7 +151,7 @@ export default function Header() {
                 openBooking();
               }}
               className="px-5 py-2.5 rounded-xl bg-primary text-background font-display font-bold text-sm hover:bg-primary-hover hover:shadow-lg hover:scale-[1.03]"
-              style={{ boxShadow: "0 0 20px rgba(255,107,0,0.15)", transition: "transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease" }}
+              style={{ boxShadow: "0 0 20px rgba(224,85,0,0.15)", transition: "transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease" }}
             >
               Записаться
             </button>

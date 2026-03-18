@@ -11,7 +11,14 @@ export default function Footer() {
         <div className="lg:hidden space-y-8">
           {/* Contacts compact */}
           <div className="flex flex-col items-center gap-3 text-sm text-muted">
-            <p className="font-medium text-foreground">{SITE.address} <span className="font-normal text-muted">· Есть парковка</span></p>
+            <TrackedLink
+              href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`}
+              event="phone_click"
+              eventParams={{ source: "footer" }}
+              className="font-medium text-foreground hover:text-primary transition-colors"
+            >
+              {SITE.phone}
+            </TrackedLink>
             <div className="flex items-center gap-4">
               <TrackedLink
                 href={SITE.social.telegram}
@@ -43,6 +50,7 @@ export default function Footer() {
               </TrackedLink>
             </div>
             <p className="text-xs">Пт - Пн: по записи</p>
+            <p className="text-xs">{SITE.address} · {SITE.parking}</p>
           </div>
 
           {/* Pages as inline row */}
@@ -132,8 +140,14 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 <li>
-                  <p className="text-sm font-medium text-foreground">{SITE.address}</p>
-                  <p className="text-xs text-muted">{SITE.parking}</p>
+                  <TrackedLink
+                    href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`}
+                    event="phone_click"
+                    eventParams={{ source: "footer" }}
+                    className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  >
+                    {SITE.phone}
+                  </TrackedLink>
                 </li>
                 <li>
                   <TrackedLink
@@ -169,6 +183,7 @@ export default function Footer() {
                 </li>
                 <li className="pt-1">
                   <p className="text-xs text-muted">Пт - Пн: по записи</p>
+                  <p className="text-xs text-muted mt-1">{SITE.address} · {SITE.parking}</p>
                 </li>
               </ul>
             </div>

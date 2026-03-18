@@ -2,7 +2,7 @@ export const SITE = {
   name: "По Барабану",
   tagline: "Школа барабанов",
   description: "Научим играть на барабанах с нуля",
-  phone: "", // Макс предоставит
+  phone: "+7 978-840-01-79",
   address: "Караимская 21",
   parking: "Есть парковка",
   social: {

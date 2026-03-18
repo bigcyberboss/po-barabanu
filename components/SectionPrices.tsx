@@ -25,7 +25,7 @@ export default function SectionPrices({ prices }: { prices: PriceItem[] }) {
       <AnimateOnScroll animation="fade-in-up">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="section-title">
-            Простые и честные <span className="text-gradient">цены</span>
+            Доступные и <span className="text-gradient">честные</span> цены
           </h2>
           <p className="section-subtitle mx-auto">
             Без скрытых платежей. Платите только за занятия
@@ -38,7 +38,7 @@ export default function SectionPrices({ prices }: { prices: PriceItem[] }) {
           <AnimateOnScroll animation="slide-in-left" delay={0} className="h-full">
             <div
               className="card relative overflow-hidden h-full flex flex-col"
-              style={{ borderColor: "rgba(255,107,0,0.5)" }}
+              style={{ borderColor: "rgba(224,85,0,0.5)" }}
             >
               {trial.popular && (
                 <div className="absolute top-0 right-0 px-3 py-1 bg-primary text-background text-xs font-bold rounded-bl-xl">
@@ -57,6 +57,7 @@ export default function SectionPrices({ prices }: { prices: PriceItem[] }) {
                     {trial.price}
                   </span>
                   <span className="text-muted">&#8381;</span>
+                  <span className="text-primary font-display font-bold text-lg">/час</span>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {trial.features.map((item) => (

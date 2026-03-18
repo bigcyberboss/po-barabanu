@@ -7,6 +7,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        xs: ['0.8125rem', { lineHeight: '1.25rem' }],
+        sm: ['0.9375rem', { lineHeight: '1.375rem' }],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

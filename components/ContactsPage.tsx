@@ -27,12 +27,12 @@ export default function ContactsPage() {
           {/* Contact info */}
           <AnimateOnScroll animation="slide-in-left">
             <div className="space-y-6">
-              {/* Address */}
+              {/* Phone */}
               <div className="card">
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(255,107,0,0.1)" }}
+                    style={{ background: "rgba(224,85,0,0.1)" }}
                   >
                     <svg
                       aria-hidden="true"
@@ -43,18 +43,22 @@ export default function ContactsPage() {
                       stroke="var(--primary)"
                       strokeWidth="2"
                     >
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                      <circle cx="12" cy="10" r="3" />
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
                   </div>
                   <div>
                     <h3 className="font-display font-bold text-lg mb-1">
-                      Адрес
+                      Телефон
                     </h3>
-                    <p className="text-muted">{SITE.address}</p>
-                    <p className="text-sm text-muted mt-1">
-                      Есть бесплатная парковка
-                    </p>
+                    <a
+                      href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`}
+                      className="text-primary hover:text-primary-hover transition-colors"
+                      onClick={() =>
+                        reachGoal("phone_click", { source: "contacts" })
+                      }
+                    >
+                      {SITE.phone}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -64,7 +68,7 @@ export default function ContactsPage() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(255,107,0,0.1)" }}
+                    style={{ background: "rgba(224,85,0,0.1)" }}
                   >
                     <svg
                       aria-hidden="true"
@@ -106,7 +110,7 @@ export default function ContactsPage() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(255,107,0,0.1)" }}
+                    style={{ background: "rgba(224,85,0,0.1)" }}
                   >
                     <svg
                       aria-hidden="true"
@@ -158,7 +162,7 @@ export default function ContactsPage() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(255,107,0,0.1)" }}
+                    style={{ background: "rgba(224,85,0,0.1)" }}
                   >
                     <svg
                       aria-hidden="true"
@@ -180,6 +184,38 @@ export default function ContactsPage() {
                     <p className="text-muted">Пт - Пн: по записи</p>
                     <p className="text-sm text-muted mt-1">
                       Подстраиваемся под ваш график
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div className="card">
+                <div className="flex items-start gap-4">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: "rgba(224,85,0,0.1)" }}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="var(--primary)"
+                      strokeWidth="2"
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-lg mb-1">
+                      Адрес
+                    </h3>
+                    <p className="text-muted">{SITE.address}</p>
+                    <p className="text-sm text-muted mt-1">
+                      Есть бесплатная парковка
                     </p>
                   </div>
                 </div>

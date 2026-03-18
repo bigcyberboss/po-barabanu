@@ -14,21 +14,21 @@ export default function SectionCTA() {
         <div
           className="relative overflow-hidden rounded-3xl border p-8 sm:p-12 lg:p-16 text-center"
           style={{
-            borderColor: "rgba(255,107,0,0.2)",
+            borderColor: "rgba(224,85,0,0.2)",
             background:
-              "linear-gradient(135deg, rgba(255,107,0,0.08), var(--surface), rgba(255,69,0,0.04))",
+              "linear-gradient(135deg, rgba(224,85,0,0.08), var(--surface), rgba(204,68,0,0.04))",
           }}
         >
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[100px]"
-            style={{ background: "rgba(255,107,0,0.1)" }}
+            style={{ background: "rgba(224,85,0,0.1)" }}
           />
           <div className="relative">
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl mb-4">
               Готовы начать?
             </h2>
             <p className="text-lg sm:text-xl text-muted max-w-lg mx-auto mb-8">
-              Запишитесь на пробный урок за 500 &#8381; и почувствуйте ритм
+              Запишись на пробный урок и почувствуй ритм
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <CTAButton

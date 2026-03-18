@@ -523,7 +523,7 @@ function SubmissionsEditor({ submissions, onMarkProcessed }: {
     <div className="space-y-3">
       {sorted.map((s) => (
         <div key={s.id} className={`card space-y-3 ${s.status === "new" ? "" : "opacity-60"}`}
-          style={s.status === "new" ? { borderColor: "rgba(255,107,0,0.4)" } : undefined}
+          style={s.status === "new" ? { borderColor: "rgba(224,85,0,0.4)" } : undefined}
         >
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">

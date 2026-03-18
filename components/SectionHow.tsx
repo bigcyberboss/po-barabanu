@@ -2,8 +2,8 @@ import AnimateOnScroll from "./AnimateOnScroll";
 
 const steps = [
   {
-    number: "01",
-    title: "Записываетесь",
+    number: "1",
+    title: "Запись",
     description: "Заполните простую форму или напишите в Telegram - мы подберём удобное время",
     icon: (
       <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -13,7 +13,7 @@ const steps = [
     ),
   },
   {
-    number: "02",
+    number: "2",
     title: "Пробный урок",
     description: "Знакомитесь с преподавателем, пробуете инструмент, получаете первые навыки",
     icon: (
@@ -24,7 +24,7 @@ const steps = [
     ),
   },
   {
-    number: "03",
+    number: "3",
     title: "Программа",
     description: "Составляем индивидуальную программу под ваши цели и музыкальные предпочтения",
     icon: (
@@ -34,7 +34,7 @@ const steps = [
     ),
   },
   {
-    number: "04",
+    number: "4",
     title: "Результат",
     description: "Играете любимые песни, выступаете на концертах и получаете удовольствие",
     icon: (
@@ -48,35 +48,48 @@ const steps = [
 
 export default function SectionHow() {
   return (
-    <section className="section">
-      <AnimateOnScroll animation="fade-in-up">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="section-title">
-            Как <span className="text-gradient">проходит</span> обучение
-          </h2>
-          <p className="section-subtitle mx-auto">
-            От первого урока до уверенной игры - 4 простых шага
-          </p>
-        </div>
-      </AnimateOnScroll>
+    <section className="relative overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/images/bg-orange.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {steps.map((step, i) => (
-          <AnimateOnScroll
-            key={step.number}
-            animation="fade-in-up"
-            delay={i * 150}
-          >
-            <div className="card group text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
-                {step.icon}
+      <div className="relative z-10 section">
+        <AnimateOnScroll animation="fade-in-up">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="section-title">
+              Как <span className="text-gradient">проходит</span> обучение
+            </h2>
+            <p className="section-subtitle mx-auto">
+              От заветного желания до уверенной игры – 4 простых шага
+            </p>
+          </div>
+        </AnimateOnScroll>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, i) => (
+            <AnimateOnScroll
+              key={step.number}
+              animation="fade-in-up"
+              delay={i * 150}
+            >
+              <div className="card group text-center">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
+                  {step.icon}
+                </div>
+                <div className="text-xs font-mono text-primary/60 mb-2">{step.number}</div>
+                <h3 className="font-display font-bold text-lg mb-2">{step.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{step.description}</p>
               </div>
-              <div className="text-xs font-mono text-primary/60 mb-2">{step.number}</div>
-              <h3 className="font-display font-bold text-lg mb-2">{step.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">{step.description}</p>
-            </div>
-          </AnimateOnScroll>
-        ))}
+            </AnimateOnScroll>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -68,34 +68,47 @@ const features = [
 
 export default function SectionEquipment() {
   return (
-    <section className="section">
-      <AnimateOnScroll animation="fade-in-up">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="section-title">
-            Почему <span className="text-gradient">выбирают</span> нас
-          </h2>
-          <p className="section-subtitle mx-auto">
-            Всё для комфортного и эффективного обучения
-          </p>
-        </div>
-      </AnimateOnScroll>
+    <section className="relative overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/images/bg-cymbal.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {features.map((item, i) => (
-          <AnimateOnScroll
-            key={item.title}
-            animation="fade-in-up"
-            delay={i * 80}
-          >
-            <div className="card group">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
-                {item.icon}
+      <div className="relative z-10 section">
+        <AnimateOnScroll animation="fade-in-up">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="section-title">
+              Почему <span className="text-gradient">выбирают</span> нас?
+            </h2>
+            <p className="section-subtitle mx-auto">
+              У нас есть все для комфортного и эффективного обучения
+            </p>
+          </div>
+        </AnimateOnScroll>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {features.map((item, i) => (
+            <AnimateOnScroll
+              key={item.title}
+              animation="fade-in-up"
+              delay={i * 80}
+            >
+              <div className="card group">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
+                  {item.icon}
+                </div>
+                <h3 className="font-display font-bold text-base mb-2">{item.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{item.description}</p>
               </div>
-              <h3 className="font-display font-bold text-base mb-2">{item.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">{item.description}</p>
-            </div>
-          </AnimateOnScroll>
-        ))}
+            </AnimateOnScroll>
+          ))}
+        </div>
       </div>
     </section>
   );

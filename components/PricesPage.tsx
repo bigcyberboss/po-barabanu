@@ -64,7 +64,7 @@ export default function PricesPage({ prices }: { prices: PriceItem[] }) {
             <AnimateOnScroll animation="slide-in-left" className="h-full">
               <div
                 className="card relative overflow-hidden h-full flex flex-col"
-                style={{ borderColor: "rgba(255,107,0,0.5)" }}
+                style={{ borderColor: "rgba(224,85,0,0.5)" }}
               >
                 <div className="absolute top-0 right-0 px-3 py-1 bg-primary text-background text-xs font-bold rounded-bl-xl">
                   Начните здесь
@@ -81,6 +81,7 @@ export default function PricesPage({ prices }: { prices: PriceItem[] }) {
                       {trial.price}
                     </span>
                     <span className="text-muted text-lg">&#8381;</span>
+                    <span className="text-primary font-display font-bold text-lg">/час</span>
                   </div>
                   <p className="text-xs text-muted mb-6">{trial.duration}</p>
                   <ul className="space-y-3 mb-8">
