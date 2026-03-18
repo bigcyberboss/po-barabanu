@@ -18,7 +18,8 @@ export default function SectionAbout() {
         <AnimateOnScroll animation="fade-in-up">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="section-title mb-6">
-              Школа барабанов{" "}
+              Школа барабанов
+              <br />
               <span className="text-gradient">&laquo;По барабану&raquo;</span>
             </h2>
 
