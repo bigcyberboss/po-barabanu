@@ -4,6 +4,8 @@ import AnimateOnScroll from "./AnimateOnScroll";
 import CTAButton from "./CTAButton";
 import { useBooking } from "./BookingProvider";
 
+const YANDEX_REVIEWS_URL = "https://yandex.ru/maps/org/po_barabanu/80576847241/reviews/";
+
 export default function ReviewsPage() {
   const { openBooking } = useBooking();
 
@@ -21,38 +23,49 @@ export default function ReviewsPage() {
           </div>
         </AnimateOnScroll>
 
-        {/* Yandex Maps reviews widget */}
-        <AnimateOnScroll animation="fade-in-up">
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="card overflow-hidden p-0">
-              <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=34.100416,44.943357&z=17&oid=80576847241&mode=search"
-                width="100%"
-                height="500"
-                style={{ border: 0, borderRadius: "inherit" }}
-                allowFullScreen
-                loading="lazy"
-                title="Отзывы о школе По Барабану на Яндекс Картах"
-              />
-            </div>
-            <div className="text-center mt-4">
-              <a
-                href="https://yandex.ru/maps/org/po_barabanu/80576847241/reviews/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary-hover transition-colors text-sm font-medium"
-              >
-                Все отзывы на Яндекс Картах →
-              </a>
+        <AnimateOnScroll animation="scale-in">
+          <div className="max-w-2xl mx-auto">
+            {/* Yandex reviews card */}
+            <div className="card text-center p-8 sm:p-12">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-6">
+                <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
+              <h2 className="font-display font-bold text-2xl mb-3">
+                Отзывы на Яндекс Картах
+              </h2>
+              <p className="text-muted mb-8 max-w-md mx-auto">
+                Мы собираем отзывы на Яндекс Картах — там они всегда актуальные
+                и проверенные. Нажмите, чтобы прочитать или оставить свой отзыв.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href={YANDEX_REVIEWS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-cta"
+                >
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                  Читать отзывы
+                </a>
+                <a
+                  href={YANDEX_REVIEWS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                >
+                  Оставить отзыв
+                </a>
+              </div>
             </div>
           </div>
         </AnimateOnScroll>
 
         <AnimateOnScroll animation="fade-in-up">
-          <div className="text-center">
-            <p className="text-muted text-sm mb-6">
-              Оставьте свой отзыв на Яндекс Картах — он автоматически появится здесь
-            </p>
+          <div className="text-center mt-12">
             <CTAButton onClick={openBooking} pulse>
               Стать следующим учеником
             </CTAButton>
