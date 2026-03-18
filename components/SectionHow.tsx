@@ -55,9 +55,9 @@ export default function SectionHow() {
           src="/images/bg-orange.jpg"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover opacity-15"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background/90" />
       </div>
 
       <div className="relative z-10 section">
