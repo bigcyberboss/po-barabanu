@@ -238,7 +238,7 @@ export default function ContactsPage() {
           <AnimateOnScroll animation="slide-in-right" delay={100}>
             <div className="card h-full min-h-[400px] flex flex-col overflow-hidden p-0">
               <iframe
-                src="https://yandex.ru/map-widget/v1/?pt=34.1008,44.9433&z=17&l=map&size=450,400"
+                src="https://yandex.ru/map-widget/v1/?pt=34.1002,44.9429&z=17&l=map&size=450,400"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "400px", borderRadius: "inherit" }}
