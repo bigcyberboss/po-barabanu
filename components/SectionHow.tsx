@@ -83,7 +83,6 @@ export default function SectionHow() {
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
                   {step.icon}
                 </div>
-                <div className="text-xs font-mono text-primary/60 mb-2">{step.number}</div>
                 <h3 className="font-display font-bold text-lg mb-2">{step.title}</h3>
                 <p className="text-sm text-muted leading-relaxed">{step.description}</p>
               </div>
