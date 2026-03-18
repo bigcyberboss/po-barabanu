@@ -79,7 +79,7 @@ export default function SectionHow() {
               animation="fade-in-up"
               delay={i * 150}
             >
-              <div className="card group text-center">
+              <div className="card group text-center h-full">
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:bg-primary/20 transition-colors">
                   {step.icon}
                 </div>
