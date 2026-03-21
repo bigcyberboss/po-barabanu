@@ -38,7 +38,9 @@ export default function TeachersPage({ teachers }: { teachers: Teacher[] }) {
               Наши <span className="text-gradient">преподаватели</span>
             </h1>
             <p className="section-subtitle mx-auto">
-              Профессиональные музыканты с опытом преподавания
+              Профессиональные музыканты{" "}
+              <br className="sm:hidden" />
+              с опытом преподавания
             </p>
           </div>
         </AnimateOnScroll>

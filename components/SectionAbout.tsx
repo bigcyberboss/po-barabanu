@@ -23,9 +23,11 @@ export default function SectionAbout() {
               <span className="text-gradient">&laquo;По барабану&raquo;</span>
             </h2>
 
-            <div className="space-y-5 text-muted text-base sm:text-lg leading-relaxed text-left">
+            <div className="space-y-5 text-muted text-base sm:text-lg leading-relaxed text-center">
               <p className="text-foreground font-display font-semibold text-lg sm:text-xl text-center">
-                Научим играть так, чтобы вам было всё по барабану!
+                Научим играть так, чтобы вам было{" "}
+                <br className="sm:hidden" />
+                всё по барабану!
               </p>
 
               <p>

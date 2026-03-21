@@ -41,8 +41,11 @@ export default function Hero() {
           className="text-lg sm:text-xl md:text-2xl text-muted max-w-2xl mx-auto mb-10 animate-fade-in-up"
           style={{ animationDelay: "200ms" }}
         >
-          Для детей и взрослых. Индивидуальные занятия с профессиональным
-          преподавателем.
+          Для детей и взрослых.{" "}
+          <br className="sm:hidden" />
+          Индивидуальные занятия
+          <br />
+          с профессиональным преподавателем.
         </p>
 
         <div

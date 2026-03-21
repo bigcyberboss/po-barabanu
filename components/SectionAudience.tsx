@@ -5,14 +5,24 @@ const audiences = [
     emoji: "🧒",
     age: "8–13 лет",
     title: "Дети",
-    description: "Развить координацию, чувство ритма и творческое мышление через музыку",
+    description: (
+      <>
+        Развить координацию, чувство ритма
+        <br />и творческое мышление через музыку
+      </>
+    ),
     color: "from-blue-500/20 to-blue-600/5",
   },
   {
     emoji: "🎸",
     age: "14–18 лет",
     title: "Подростки",
-    description: "Выплеснуть эмоции, найти хобби, которое может стать делом жизни",
+    description: (
+      <>
+        Выплеснуть эмоции, найти хобби,
+        <br />которое может стать делом жизни
+      </>
+    ),
     color: "from-purple-500/20 to-purple-600/5",
   },
   {
@@ -26,14 +36,24 @@ const audiences = [
     emoji: "⭐",
     age: "35+ лет",
     title: "Для мечтателей",
-    description: "Осуществить давнюю мечту - никогда не поздно начать",
+    description: (
+      <>
+        Осуществить давнюю мечту
+        <br />- никогда не поздно начать
+      </>
+    ),
     color: "from-amber-500/20 to-amber-600/5",
   },
   {
     emoji: "🥁",
     age: "Любой опыт",
     title: "Продвинутые",
-    description: "Прокачать технику, освоить новые стили и выйти на новый уровень",
+    description: (
+      <>
+        Прокачать технику, освоить новые стили
+        <br />и выйти на новый уровень
+      </>
+    ),
     color: "from-green-500/20 to-green-600/5",
   },
 ];
@@ -56,7 +76,7 @@ export default function SectionAudience() {
         <AnimateOnScroll animation="fade-in-up">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="section-title">
-              Для <span className="text-gradient">кого</span> наши уроки
+              Для <span className="text-gradient">кого</span> наши уроки?
             </h2>
             <p className="section-subtitle mx-auto">
               Мы работаем с учениками любого возраста и уровня подготовки

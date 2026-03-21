@@ -12,7 +12,7 @@ export default function SectionCTA() {
     <section className="section">
       <AnimateOnScroll animation="scale-in">
         <div
-          className="relative overflow-hidden rounded-3xl border p-8 sm:p-12 lg:p-16 text-center"
+          className="relative overflow-hidden rounded-3xl border px-5 py-8 sm:p-12 lg:p-16 text-center"
           style={{
             borderColor: "rgba(224,85,0,0.2)",
             background:
@@ -28,7 +28,9 @@ export default function SectionCTA() {
               Готовы начать?
             </h2>
             <p className="text-lg sm:text-xl text-muted max-w-lg mx-auto mb-8">
-              Запишись на пробный урок и почувствуй ритм
+              Запишитесь на пробный урок{" "}
+              <br className="sm:hidden" />
+              и почувствуйте ритм!
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <CTAButton

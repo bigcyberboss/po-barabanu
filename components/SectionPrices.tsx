@@ -25,10 +25,14 @@ export default function SectionPrices({ prices }: { prices: PriceItem[] }) {
       <AnimateOnScroll animation="fade-in-up">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="section-title">
-            Доступные и <span className="text-gradient">честные</span> цены
+            Доступные{" "}
+            <br className="sm:hidden" />
+            и <span className="text-gradient">честные</span> цены
           </h2>
           <p className="section-subtitle mx-auto">
-            Без скрытых платежей. Платите только за занятия
+            Без скрытых платежей.{" "}
+            <br className="sm:hidden" />
+            Платите только за занятия
           </p>
         </div>
       </AnimateOnScroll>
@@ -49,14 +53,14 @@ export default function SectionPrices({ prices }: { prices: PriceItem[] }) {
                 <h3 className="font-display font-bold text-xl mb-1">
                   {trial.title}
                 </h3>
-                <p className="text-sm text-muted mb-6">
+                <p className="text-sm text-muted mb-6 whitespace-pre-line">
                   {trial.description}
                 </p>
                 <div className="flex items-baseline gap-1 mb-6">
                   <span className="font-display font-extrabold text-4xl text-primary">
                     {trial.price}
                   </span>
-                  <span className="text-muted">&#8381;</span>
+                  <span className="text-primary">&#8381;</span>
                   <span className="text-primary font-display font-bold text-lg">/час</span>
                 </div>
                 <ul className="space-y-3 mb-8">
