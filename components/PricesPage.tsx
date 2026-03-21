@@ -80,7 +80,7 @@ export default function PricesPage({ prices }: { prices: PriceItem[] }) {
                     <span className="font-display font-extrabold text-5xl text-primary">
                       {trial.price}
                     </span>
-                    <span className="text-muted text-lg">&#8381;</span>
+                    <span className="text-primary text-lg">&#8381;</span>
                     <span className="text-primary font-display font-bold text-lg">/час</span>
                   </div>
                   <p className="text-xs text-muted mb-6">{trial.duration}</p>
