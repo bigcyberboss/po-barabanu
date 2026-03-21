@@ -73,7 +73,7 @@ export default function PricesPage({ prices }: { prices: PriceItem[] }) {
                   <h2 className="font-display font-bold text-2xl mb-1">
                     {trial.title}
                   </h2>
-                  <p className="text-sm text-muted mb-6">
+                  <p className="text-sm text-muted mb-6 whitespace-pre-line">
                     {trial.description}
                   </p>
                   <div className="flex items-baseline gap-1 mb-2">
