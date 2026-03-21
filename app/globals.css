@@ -27,6 +27,8 @@ html {
     -moz-osx-font-smoothing: grayscale;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 html::-webkit-scrollbar {
