@@ -35,8 +35,25 @@ export const metadata: Metadata = {
     title: "По Барабану - Школа барабанов",
     description:
       "Научим играть на барабанах с нуля. Для детей и взрослых. Пробный урок - 500 ₽.",
+    url: "https://pobarabanu-school.ru",
+    siteName: "По Барабану",
     locale: "ru_RU",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "По Барабану — школа барабанов",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "По Барабану - Школа барабанов",
+    description:
+      "Научим играть на барабанах с нуля. Для детей и взрослых. Пробный урок - 500 ₽.",
+    images: ["/og-image.jpg"],
   },
 };
 
