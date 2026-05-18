@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin", "/api/"],
     },
-    sitemap: "https://pobarabanu.ru/sitemap.xml",
+    sitemap: "https://pobarabanu-school.ru/sitemap.xml",
   };
 }

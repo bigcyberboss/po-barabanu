@@ -20,6 +20,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pobarabanu-school.ru"),
   title: "По Барабану - Школа барабанов | Уроки для детей и взрослых",
   description:
     "Научим играть на барабанах с нуля. Индивидуальные занятия для детей и взрослых. Пробный урок - 500 ₽. Караимская 21.",
