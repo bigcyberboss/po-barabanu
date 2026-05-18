@@ -3,7 +3,7 @@ import PricesPage from "@/components/PricesPage";
 import fs from "fs/promises";
 import path from "path";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Цены - По Барабану | Школа барабанов",

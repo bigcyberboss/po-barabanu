@@ -2,7 +2,7 @@ import HomePage from "@/components/HomePage";
 import fs from "fs/promises";
 import path from "path";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 async function getPrices() {
   const filePath = path.join(process.cwd(), "data", "prices.json");

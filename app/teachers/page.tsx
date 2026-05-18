@@ -3,7 +3,7 @@ import TeachersPage from "@/components/TeachersPage";
 import fs from "fs/promises";
 import path from "path";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Преподаватели - По Барабану | Школа барабанов",
